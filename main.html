@@ -40,8 +40,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.btn');
     const stopButton = document.querySelector('.stop');
-    let currentAudio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
-
+    let currentAudio = null;
 
     buttons.forEach(button => {
       button.addEventListener('click', () => {
@@ -50,7 +49,8 @@
           currentAudio.currentTime = 0;
         }
         const soundFile = button.getAttribute('data-sound');
-        currentAudio = new Audio(`sounds/${soundFile}`);
+        currentAudio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
+
         currentAudio.play();
       });
     });
