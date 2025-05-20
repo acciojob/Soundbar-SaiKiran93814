@@ -40,7 +40,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.btn');
     const stopButton = document.querySelector('.stop');
-    let currentAudio = null;
+    let currentAudio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
+
 
     buttons.forEach(button => {
       button.addEventListener('click', () => {
