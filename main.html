@@ -1,24 +1,68 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Soundbar</title>
+  <style>
+    #buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .btn, .stop {
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      color: white;
+    }
+    .btn {
+      background-color: #007bff;
+    }
+    .stop {
+      background-color: #dc3545;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
-	  <section id="buttons">
-    <!-- Buttons will be inserted here -->
-    <button class="btn" data-sound="sound1.mp3">Sound 1</button>
-    <button class="btn" data-sound="sound2.mp3">Sound 2</button>
-    <button class="btn" data-sound="sound3.mp3">Sound 3</button>
-    <button class="stop">Stop</button>
-  </section>
 
+<section id="buttons">
+  <button class="btn" data-sound="sound1.mp3">Sound 1</button>
+  <button class="btn" data-sound="sound2.mp3">Sound 2</button>
+  <button class="btn" data-sound="sound3.mp3">Sound 3</button>
+  <button class="stop">Stop</button>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.btn');
+    const stopButton = document.querySelector('.stop');
+    let currentAudio = null;
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+        const soundFile = button.getAttribute('data-sound');
+        currentAudio = new Audio(`sounds/${soundFile}`);
+        currentAudio.play();
+      });
+    });
+
+    stopButton.addEventListener('click', () => {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+      }
+    });
+  });
+</script>
 
 </body>
-
 </html>
