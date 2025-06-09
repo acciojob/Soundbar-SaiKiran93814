@@ -2,68 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soundbar</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+      background-color: #f4f4f4;
+    }
+
     #buttons {
+      margin: 20px auto;
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       justify-content: center;
-      margin-top: 40px;
     }
+
     .btn, .stop {
-      padding: 12px 24px;
+      padding: 15px 25px;
       font-size: 16px;
-      border-radius: 5px;
       border: none;
+      border-radius: 5px;
       cursor: pointer;
+      background-color: #007BFF;
       color: white;
+      transition: background-color 0.3s;
     }
-    .btn {
-      background-color: #007bff;
+
+    .btn:hover {
+      background-color: #0056b3;
     }
+
     .stop {
+      margin-top: 20px;
       background-color: #dc3545;
+    }
+
+    .stop:hover {
+      background-color: #a71d2a;
     }
   </style>
 </head>
 <body>
-
-<section id="buttons">
-  <button class="btn" data-sound="sound1.mp3">Sound 1</button>
-  <button class="btn" data-sound="sound2.mp3">Sound 2</button>
-  <button class="btn" data-sound="sound3.mp3">Sound 3</button>
+  <h1>Soundbar</h1>
+  <div id="buttons"></div>
   <button class="stop">Stop</button>
-</section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.btn');
-    const stopButton = document.querySelector('.stop');
+  <script>
+    const soundNames = ['clap', 'boom', 'hihat']; // Add or remove as needed
+    const buttonsContainer = document.getElementById('buttons');
     let currentAudio = null;
 
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
+    soundNames.forEach(sound => {
+      const btn = document.createElement('button');
+      btn.innerText = sound;
+      btn.classList.add('btn');
+      btn.addEventListener('click', () => {
         if (currentAudio) {
           currentAudio.pause();
           currentAudio.currentTime = 0;
         }
-        const soundFile = button.getAttribute('data-sound');
-        currentAudio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
-
+        currentAudio = new Audio(`sounds/${sound}.wav`);
         currentAudio.play();
       });
+      buttonsContainer.appendChild(btn);
     });
 
-    stopButton.addEventListener('click', () => {
+    document.querySelector('.stop').addEventListener('click', () => {
       if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
-        currentAudio = null;
       }
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
+
