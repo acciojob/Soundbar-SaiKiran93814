@@ -50,33 +50,7 @@
   <div id="buttons"></div>
   <button class="stop">Stop</button>
 
-  <script>
-    const soundNames = ['clap', 'boom', 'hihat']; // Add or remove as needed
-    const buttonsContainer = document.getElementById('buttons');
-    let currentAudio = null;
-
-    soundNames.forEach(sound => {
-      const btn = document.createElement('button');
-      btn.innerText = sound;
-      btn.classList.add('btn');
-      btn.addEventListener('click', () => {
-        if (currentAudio) {
-          currentAudio.pause();
-          currentAudio.currentTime = 0;
-        }
-        currentAudio = new Audio(`sounds/${sound}.wav`);
-        currentAudio.play();
-      });
-      buttonsContainer.appendChild(btn);
-    });
-
-    document.querySelector('.stop').addEventListener('click', () => {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-    });
-  </script>
+  
 </body>
 </html>
 
