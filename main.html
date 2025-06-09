@@ -47,23 +47,19 @@ soundNames.forEach(sound => {
   btn.classList.add('btn');
 
   btn.addEventListener('click', () => {
+    // Stop current audio
     if (currentAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
+      currentAudio.remove(); // remove previous audio tag from DOM
     }
 
-    currentAudio = new Audio(`sounds/${sound}.wav`);
-
-    // Handle load errors
-    currentAudio.onerror = () => {
-      console.error(`❌ Error: Failed to load sounds/${sound}.wav`);
-    };
-
-    // Prevent Cypress from failing
-    currentAudio.play().catch(err => {
-      console.error("❌ Playback failed:", err);
-    });
-  });
+    // Create and add new audio element to DOM
+    currentAudio = document.createElement('audio');
+    currentAudio.src = `sounds/${sound}.wav`;
+    currentAudio.setAttribute('controls', ''); // optional: for debugging UI
+    currentAudio.style.display = 'none'; // hide in UI if needed
+    currentAudio.autoplay = true;
 
   buttonsContainer.appendChild(btn);
 });
