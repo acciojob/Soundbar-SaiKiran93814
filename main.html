@@ -37,32 +37,44 @@
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.btn');
-    const stopButton = document.querySelector('.stop');
-    let currentAudio = null;
+ const soundNames = ['clap', 'boom', 'hihat'];
+const buttonsContainer = document.getElementById('buttons');
+let currentAudio = null;
 
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        if (currentAudio) {
-          currentAudio.pause();
-          currentAudio.currentTime = 0;
-        }
-        const soundFile = button.getAttribute('data-sound');
-        currentAudio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
+soundNames.forEach(sound => {
+  const btn = document.createElement('button');
+  btn.innerText = sound;
+  btn.classList.add('btn');
 
-        currentAudio.play();
-      });
-    });
+  btn.addEventListener('click', () => {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
 
-    stopButton.addEventListener('click', () => {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-        currentAudio = null;
-      }
+    currentAudio = new Audio(`sounds/${sound}.wav`);
+
+    // Handle load errors
+    currentAudio.onerror = () => {
+      console.error(`❌ Error: Failed to load sounds/${sound}.wav`);
+    };
+
+    // Prevent Cypress from failing
+    currentAudio.play().catch(err => {
+      console.error("❌ Playback failed:", err);
     });
   });
+
+  buttonsContainer.appendChild(btn);
+});
+
+document.querySelector('.stop').addEventListener('click', () => {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+});
+
 </script>
 
 </body>
