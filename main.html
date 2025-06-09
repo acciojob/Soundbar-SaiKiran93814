@@ -40,40 +40,38 @@
 </section>
 
 <script>
- const soundNames = ['clap', 'boom', 'hihat'];
-const buttonsContainer = document.getElementById('buttons');
-let currentAudio = null;
+const soundNames = ['clap', 'boom', 'hihat']; // Your sound files should be named clap.wav, boom.wav, hihat.wav
+    const buttonsContainer = document.getElementById('buttons');
+    let currentAudio = null;
 
-soundNames.forEach(sound => {
-  const btn = document.createElement('button');
-  btn.innerText = sound;
-  btn.classList.add('btn');
+    soundNames.forEach(sound => {
+      const btn = document.createElement('button');
+      btn.innerText = sound;
+      btn.classList.add('btn');
 
-  btn.addEventListener('click', () => {
-    // Stop current audio
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      currentAudio.remove(); // remove previous audio tag from DOM
-    }
+      btn.addEventListener('click', () => {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          currentAudio.remove();
+        }
 
-    // Create and add new audio element to DOM
-    currentAudio = document.createElement('audio');
-    currentAudio.src = `sounds/${sound}.wav`;
-    currentAudio.setAttribute('controls', ''); // optional: for debugging UI
-    currentAudio.style.display = 'none'; // hide in UI if needed
-    currentAudio.autoplay = true;
+        currentAudio = document.createElement('audio');
+        currentAudio.src = `sounds/${sound}.wav`;
+        currentAudio.autoplay = true;
+        currentAudio.style.display = 'none';
+        document.body.appendChild(currentAudio);
+      });
 
-  buttonsContainer.appendChild(btn);
-});
+      buttonsContainer.appendChild(btn);
+    });
 
-document.querySelector('.stop').addEventListener('click', () => {
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-  }
-});
-
+    document.querySelector('.stop').addEventListener('click', () => {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+    });
 </script>
 
 </body>
